@@ -484,6 +484,79 @@
     border-radius: 8px;
 }
 
+				  .circle-container {
+    display: flex
+;
+    align-self: flex-start;
+    justify-content: center;
+    /* align-items: center; */
+    position: relative;
+    /* height: 23px; */
+    /* padding-right: 35px; */
+    /* margin-bottom: 11px; */
+    /* padding-left: 11px; */
+    width: 10px;
+    /*animation: pulseEffect 5s infinite;*/
+    /*animation: pulseEffect 5s infinite; *//* Pulsing effect */
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #63d8ff;
+    opacity: 0.3;
+    animation: growShrink 2s ease-in-out infinite;
+    transition: transform 0.2s ease; /* Smooth transition */
+}
+
+/*
+.circle:nth-child(1) {
+    width: 35px;
+    height: 35px;
+    animation-delay: 0s;
+}
+*/
+
+/*.circle:nth-child(2) {
+    width: 25px;
+    height: 25px;
+    animation-delay: 0.5s;
+}*/
+
+.circle:nth-child(3) {
+    width: 13px;
+    height: 13px;
+    opacity: 1;
+    animation-delay: 1s;
+}
+
+@keyframes growShrink {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3); /* Grow the circle */
+    }
+}
+
+@keyframes pulseEffect {
+    0% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.circle-container:hover .circle {
+    transform: scale(1.4); /* Scale up on hover */
+    opacity: 1; /* Fully visible when hovered */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
 
 
 
@@ -536,6 +609,11 @@
 			</div>
 			<div class="general-display-container"></div>
         <div class="weight-display">
+		<span class="circle-container">											
+			<div class="circle"></div>
+			<div class="circle"></div>
+			<div class="circle"></div>
+		</span>
             <div class="gauge-container">
                
                 <div class="weight-value-container">
