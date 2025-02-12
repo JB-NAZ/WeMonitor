@@ -1,283 +1,333 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-<title>体温トラッカー</title>
-<style>
-    :root {
-        --primary-color: #F19696;
-        --secondary-color: #F19696;
-        --bg-dark: #FFFFFF;  /* Changed background to white */
-        --bg-card: #FFFFFF;  /* Card background also white */
-        --text-primary: #333333;  /* Darker text for better visibility */
-        --text-secondary: #94A3B8;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>体温トラッカー</title>
+    <style>
+        :root {
+            --primary-color: #F19696;
+            --secondary-color: #F19696;
+            --bg-dark: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #333333;
+            --text-secondary: #94A3B8;
+        }
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, 'Ubuntu', Roboto, Oxygen, Cantarell, sans-serif;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Ubuntu', Roboto, Oxygen, Cantarell, sans-serif;
+        }
 
-    body {
-        background: var(--bg-dark);
-        color: var(--text-primary);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem;
-    }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
 
-    .container {
-        background: var(--bg-card);
-        border-radius: 24px;
-        padding: 2rem;
-        width: 100%;
-        max-width: 400px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .title {
-        text-align: center;
-        margin-bottom: 2rem;
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-
-    .progress-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 100%;
-        margin: 0 auto 2rem;
-        max-width: 300px;
-    }
-
-    .progress-circle {
-        position: absolute;
-        inset: 0;
-        transform: rotate(-90deg);
-    }
-
-    .progress-circle circle {
-        stroke-linecap: round;
-        transition: stroke-dashoffset 0.5s ease;
-    }
-
-    .time-display {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        font-weight: bold;
-    }
-
-    .slider-container {
-        margin: 2rem 0;
-        padding: 0 1rem;
-    }
-
-    .time-slider {
-        width: 100%;
-        -webkit-appearance: none;
-        height: 6px;
-        background: #D1D5DB;  /* Lighter slider background */
-        border-radius: 3px;
-        outline: none;
-    }
-
-    .time-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 20px;
-        height: 20px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid var(--bg-card);
-        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
-    }
-
-    .controls {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-
-    .control-btn {
-        background: #334155;
-        border: none;
-        color: var(--text-primary);
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .control-btn:hover {
-        background: #475569;
-        transform: translateY(-2px);
-    }
-
-    .time-label {
-        text-align: center;
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-    }
-
-    .time-values {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 0.5rem;
-        font-size: 0.875rem;
-    }
-
-    .time-values span {
-        color: var(--primary-color);
-    }
-
-    @media (max-width: 480px) {
         .container {
-            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
 
         .progress-container {
-            max-width: 250px;
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            margin: 0 auto 2rem;
+            max-width: 300px;
+        }
+
+        .progress-circle {
+            position: absolute;
+            inset: 0;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle circle {
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
         }
 
         .time-display {
-            font-size: 2rem;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
         }
 
-        .control-btn {
-            width: 40px;
-            height: 40px;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .container {
-            padding: 2.5rem;
+        .slider-container {
+            margin: 2rem 0;
+            padding: 0 1rem;
         }
 
-        .progress-container {
-            max-width: 320px;
+        .time-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 6px;
+            background: #D1D5DB;
+            border-radius: 3px;
+            outline: none;
         }
-    }
-	
-	.save-button a {
-		color: white;
-		text-decoration: none;
-	}
-	
-	.save-button {
-		    width: 100%;
-    padding: 0.75rem;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1.125rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex
-;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 2rem;
-    transition: background-color 0.2s;
-	}
-</style>
+
+        .time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid var(--bg-card);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+      
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 9999px;
+            background-color: #f3f4f6;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            font-weight: bold;
+            color: black;
+        }
+
+        .btn:hover {
+            background-color: #e5e7eb;
+        }
+
+        .btn-large {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .btn-small {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .time-label {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .time-values {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .time-values span {
+            color: var(--primary-color);
+        }
+
+        .save-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            transition: background-color 0.2s;
+        }
+
+        .save-button:hover {
+            background-color: #333;
+        }
+
+        .save-button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .progress-container {
+                max-width: 250px;
+            }
+
+            .time-display {
+                font-size: 2rem;
+                width: 250px;
+                height: 250px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-container {
+                flex-direction: row ;
+            }
+            .btn-container-minus{
+            
+            flex-direction: row-reverse;
+        }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 2.5rem;
+            }
+
+            .progress-container {
+                max-width: 320px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <div class="back-button"><a href="temperaturedashboard.html"><span class="material-symbols-outlined" style="
-        font-size: 45px;
-        margin-bottom: 32px;
-        color: black;
-    ">
-    arrow_back
-    </span></a></div>
-<h1 class="title">体温</h1>
-<div class="progress-container">
-<svg class="progress-circle" viewBox="0 0 100 100">
-<circle cx="50" cy="50" r="45" fill="none" stroke="#D1D5DB" stroke-width="8"/>
-<circle cx="50" cy="50" r="45" fill="none" stroke="#F19696" stroke-width="8" 
-                        stroke-dasharray="282.7" stroke-dashoffset="70"/>
-<defs>
-<linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#8B5CF6"/>
-<stop offset="100%" stop-color="#6366F1"/>
-</linearGradient>
-</defs>
-</svg>
-<div class="time-display">36.5</div>
-</div>
+    <div class="container">
+        <div class="back-button">
+            <a href="temperaturedashboard.html">
+                <span class="material-symbols-outlined" style="font-size: 45px; margin-bottom: 32px; color: black;">
+                    arrow_back
+                </span>
+            </a>
+        </div>
+        <h1 class="title">体温</h1>
+        <div class="progress-container">
+            <svg class="progress-circle" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#D1D5DB" stroke-width="8"/>
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#F19696" stroke-width="8" stroke-dasharray="282.7" stroke-dashoffset="70"/>
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#8B5CF6"/>
+                        <stop offset="100%" stop-color="#6366F1"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="time-display">36.5</div>
+        </div>
 
-<div class="slider-container">
-<input type="range" class="time-slider" min="30" max="42" value="36.5" step="0.1">
-</div>
+        <div class="slider-container">
+            <input type="range" class="time-slider" min="30" max="42" value="36.5" step="0.1">
+        </div>
 
+        <div class="controls">
+            <div class="btn-container btn-container-minus">
+                <button class="btn btn-large" onclick="adjustTemperature(-1.0)">-1.0</button>
+                <button class="btn btn-small" onclick="adjustTemperature(-0.1)">-0.1</button>
+            </div>
+            <div class="btn-container">
+                <button class="btn btn-small" onclick="adjustTemperature(0.1)">+0.1</button>
+                <button class="btn btn-large" onclick="adjustTemperature(1.0)">+1.0</button>
+            </div>
+        </div>
 
+        <div class="time-label">
+            体温
+            <div class="time-values">
+                <span>36.0°C</span>
+                <span style="color: var(--text-secondary)">-</span>
+                <span>38.0°C</span>
+            </div>
+        </div>
+        <button class="save-button">保存</button>
+    </div>
 
-<div class="time-label">
-体温
-<div class="time-values">
-<span>36.0°C</span>
-<span style="color: var(--text-secondary)">-</span>
-<span>38.0°C</span>
-</div>
-	<button class="save-button">保存</button>
-	
-</div>
-</div>
+    <script>
+        const slider = document.querySelector('.time-slider');
+        const timeDisplay = document.querySelector('.time-display');
+        const progressCircle = document.querySelector('.progress-circle circle:nth-child(2)');
+        const circumference = 2 * Math.PI * 45;
 
-<script>
-    const slider = document.querySelector('.time-slider');
-    const timeDisplay = document.querySelector('.time-display');
-    const progressCircle = document.querySelector('.progress-circle circle:nth-child(2)');
-    const circumference = 2 * Math.PI * 45;
-
-    slider.addEventListener('input', (e) => {
-        const temperature = e.target.value;
-        timeDisplay.textContent = temperature;
-        const offset = circumference - ((temperature - 30) / 12) * circumference;
-        progressCircle.style.strokeDashoffset = offset;
-
-        // Change gradient based on temperature value
-        let primaryColor = "#8B5CF6"; // Default color
-        let secondaryColor = "#6366F1"; // Default color
-        if (temperature > 38) {
-            primaryColor = "#FF0000";  // Red for high temperature
-            secondaryColor = "#FF7F7F"; // Light red
-        } else if (temperature < 36) {
-            primaryColor = "#00BFFF";  // Blue for low temperature
-            secondaryColor = "#87CEFA"; // Light blue
+        function adjustTemperature(delta) {
+            const currentTemp = parseFloat(slider.value);
+            const newTemp = Math.min(Math.max(currentTemp + delta, 30), 42);
+            slider.value = newTemp;
+            updateDisplay(newTemp);
         }
 
-        const gradient = `linear-gradient(90deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
-        progressCircle.style.stroke = gradient;
-    });
+        function updateDisplay(temperature) {
+            timeDisplay.textContent = temperature.toFixed(1);
+            const offset = circumference - ((temperature - 30) / 12) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
 
-    // Initialize progress circle
-    progressCircle.style.strokeDasharray = circumference;
-    progressCircle.style.strokeDashoffset = circumference - ((36.5 - 30) / 12) * circumference;
-</script>
+            let primaryColor = "#8B5CF6";
+            let secondaryColor = "#6366F1";
+            if (temperature > 38) {
+                primaryColor = "#FF0000";
+                secondaryColor = "#FF7F7F";
+            } else if (temperature < 36) {
+                primaryColor = "#00BFFF";
+                secondaryColor = "#87CEFA";
+            }
+
+            const gradient = `linear-gradient(90deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+            progressCircle.style.stroke = gradient;
+        }
+
+        slider.addEventListener('input', (e) => {
+            updateDisplay(parseFloat(e.target.value));
+        });
+
+        // Initialize progress circle
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = circumference - ((36.5 - 30) / 12) * circumference;
+
+        document.querySelector('.save-button').addEventListener('click', () => {
+            alert('温度が保存されました: ' + timeDisplay.textContent + '°C');
+        });
+    </script>
 </body>
 </html>
